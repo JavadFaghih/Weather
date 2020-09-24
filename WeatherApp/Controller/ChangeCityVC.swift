@@ -11,10 +11,6 @@ class ChangeCityVC: UIViewController {
     
     @IBOutlet weak var cityTxtField: UITextField!
     
-    
-    
-  
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -24,11 +20,13 @@ class ChangeCityVC: UIViewController {
         
         if let city = cityTxtField.text {
            
-            let params : [String : String] = ["q" : city, "appid" : APP_ID]
+            let params : [String : String] = ["q" : city,"appid" : APP_ID]
             
             DownloadWeatherServices.instanse.getWeatherData(parameters: params)
             self.navigationController?.popViewController(animated: true)
             
+        } else {
+            return
         }
     }
     

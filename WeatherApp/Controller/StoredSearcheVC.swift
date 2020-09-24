@@ -24,26 +24,17 @@ extension StoredSearcheVC: UITableViewDelegate, UITableViewDataSource {
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return Weather.getWeather()?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "storedSearcheVC", for: indexPath) as? StoredCell else { return UITableViewCell() }
-        
-        
-        
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "storedCell", for: indexPath) as? StoredCell else { return UITableViewCell() }
+
+        cell.configoreCell(weatherData: Weather.getWeather()![indexPath.row])
+      
         return cell
     }
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 

@@ -10,8 +10,7 @@ import UIKit
 class StoredCell: UITableViewCell {
 
     @IBOutlet weak var tempratureLbl: UILabel!
-    @IBOutlet weak var timeLbl: UILabel!
-    @IBOutlet weak var weatherConditionImageView: UIImageView!
+    @IBOutlet weak var cityNameLbl: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
     
     
@@ -22,10 +21,10 @@ class StoredCell: UITableViewCell {
         // Initialization code
     }
 
-    func configoreCell(weatherData: WeatherData) {
-        tempratureLbl.text = String(weatherData.temperature)
-      //  weatherConditionImageView.image = weatherData.
-        
+    func configoreCell(weatherData: Weather) {
+        tempratureLbl.text = "\(weatherData.temperature)º"
+        cityNameLbl.text = weatherData.city
+        dateLbl.text = weatherData.date.getDateString()
     }
     
     

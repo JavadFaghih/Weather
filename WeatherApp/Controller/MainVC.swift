@@ -9,13 +9,13 @@ import UIKit
 import CoreLocation
 
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class MainVC: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var tempratureLbl: UILabel!
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var cityLbl: UILabel!
     
-    let weatherData = WeatherData()
+
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -32,39 +32,88 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = UIColor.clear
+        
         updateUI()
         
     }
     
     func updateUI() {
-        cityLbl.text = weatherData.city
-        tempratureLbl.text = "\(weatherData.temperature)"
-        conditionImageView.image = UIImage(named: weatherData.weatherIconName) 
+       
+        guard let weather = Weather.getWeather()?.first else { return }
+        
+     
+        cityLbl.text = String(weather.city)
+        tempratureLbl.text = "\(weather.temperature)º"
+        conditionImageView.image = UIImage(named: updateWeatherIcon(condition: weather.condition))
+        
+        print(Weather.getWeather())
         
         
+    }
+    
+    func updateWeatherIcon(condition: Int) -> String {
         
+    switch (condition) {
+    
+        case 0...300 :
+            return "tstorm1"
+        
+        case 301...500 :
+            return "light_rain"
+        
+        case 501...600 :
+            return "shower3"
+        
+        case 601...700 :
+            return "snow4"
+        
+        case 701...771 :
+            return "fog"
+        
+        case 772...799 :
+            return "tstorm3"
+        
+        case 800 :
+            return "sunny"
+        
+        case 801...804 :
+            return "cloudy2"
+        
+        case 900...903, 905...1000  :
+            return "tstorm3"
+        
+        case 903 :
+            return "snow5"
+        
+        case 904 :
+            return "sunny"
+        
+        default :
+            return "dunno"
+        }
+
     }
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations[locations.count - 1]
+        
         if location.horizontalAccuracy > 0 {
             self.locationManager.stopUpdatingLocation()
             
             let latitude = String(location.coordinate.latitude)
             let longitude = String(location.coordinate.longitude)
             
-          
             print("longtitude: \(longitude), latitude: \(latitude)")
             
             let paramiters: [String : String] = ["lat" : latitude, "lon" : longitude, "appid" : APP_ID]
             
-            
-            
-            
            DownloadWeatherServices.instanse.getWeatherData(parameters: paramiters)
-            updateUI()
         }
         
         
