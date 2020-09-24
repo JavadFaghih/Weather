@@ -8,5 +8,5 @@ target 'WeatherApp' do
   # Pods for WeatherApp
   pod 'Alamofire'
 pod 'SwiftyJSON'
-
+ pod 'RealmSwift'
 end

@@ -14,14 +14,14 @@ class DownloadWeatherServices {
    static let instanse = DownloadWeatherServices()
     
     var weatherDataModel = WeatherData()
+
     
     
-  
     
     //Get Weather Data
-    func getWeatherData(url: String, parameters: [String: String]) {
+    func getWeatherData(parameters: [String: String]) {
         
-        AF.request(url, method: .get, parameters: parameters).responseJSON {
+        AF.request(WEATHER_URL, method: .get, parameters: parameters).responseJSON {
             response in
             
             switch response.result {
@@ -49,14 +49,29 @@ class DownloadWeatherServices {
     
         let tempResult = json["main"]["temp"].doubleValue
     
-            weatherDataModel.temperature = Int(tempResult - 273.15)
-    
-            weatherDataModel.city = json["name"].stringValue
-    
-            weatherDataModel.condition = json["weather"][0]["id"].intValue
-    
-            weatherDataModel.weatherIconName = weatherDataModel.updateWeatherIcon(condition: weatherDataModel.condition)
-    
+        let tempratore = Int(tempResult - 273.15)
+        let city = json["name"].stringValue
+        let condition = json["weather"][0]["id"].intValue
+       
+        
+        Weather.addWeatherToRealm(temp: tempratore, condition: condition, city: city)
+        
+        
+        
+        
+        
+        
+        
+//        weatherDataModel.temperature = Int(tempResult - 273.15)
+//
+//            weatherDataModel.city = json["name"].stringValue
+//
+//            weatherDataModel.condition = json["weather"][0]["id"].intValue
+//
+//            weatherDataModel.weatherIconName = weatherDataModel.updateWeatherIcon(condition: weatherDataModel.condition)
+//
+//
+        
         }
     
     
