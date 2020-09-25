@@ -17,7 +17,7 @@ extension NSDate {
         let day = calener.component(.day, from: self as Date)
         let year = calener.component(.year, from: self as Date)
         
-        return "\(month)/\(day)/\(year)"
+        return "\(day)/\(month)/\(year)"
         
     }
     

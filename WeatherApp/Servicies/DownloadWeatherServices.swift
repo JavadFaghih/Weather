@@ -43,6 +43,8 @@ class DownloadWeatherServices {
         let condition = json["weather"][0]["id"].intValue
         let city = json["name"].stringValue
         
+        
+        //add weather to local host
         Weather.addWeatherToRealm(temp: tempratore, condition: condition, city: city)
 
     }

@@ -27,9 +27,9 @@ class Weather: Object {
     
     
     
-    override class func indexedProperties() -> [String] {
-        return ["temperature", "date", "city"]
-    }
+//    override class func indexedProperties() -> [String] {
+//        return ["temperature", "date", "city"]
+//    }
     
     convenience init(temp: Int, conditin: Int, city: String) {
         self.init()
@@ -58,7 +58,7 @@ class Weather: Object {
                 try realm.write{
                     realm.add(weather)
                     try realm.commitWrite()
-                    print("successfully add run to realm")
+                    print("successfully add weather to realm")
                 }
             } catch {
                 debugPrint("error adding weather to realm")
@@ -85,16 +85,40 @@ class Weather: Object {
         }
     }
     
+
+    //for delete data from Realm DataBase
+    static func deleteWeather(_ indexPath: Int)  {
+
+            do {
+                let realm = try Realm()
+
+                let object = realm.objects(Weather.self).sorted(byKeyPath: "date", ascending: false)[indexPath]
+            
+                try! realm.write {
+                   
+                        realm.delete(object)
+                
+                }
+            } catch let error as NSError {
+               
+                print("error - \(error.localizedDescription)")
+            }
+        }
+
     
-    //get last run by id
-    static func getWeatherById(byid id: String) -> Weather? {
-        
+  static  func deleteAllWeather() {
         do {
             let realm = try Realm()
-            let weather = realm.object(ofType: Weather.self, forPrimaryKey: id)
-            return weather
-        } catch {
-            return nil
+
+        //    let objects = realm.objects(Weather.self)
+
+            try! realm.write {
+                realm.deleteAll()
+            }
+        } catch let error as NSError {
+            // handle error
+            print("error - \(error.localizedDescription)")
         }
     }
+
 }
