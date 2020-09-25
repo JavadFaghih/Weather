@@ -23,7 +23,7 @@ class DownloadWeatherServices {
             
             case .success(let value):
                 let weatherJSON : JSON = JSON(value)
-                self.updateWeatherData(json: weatherJSON)
+                self.parseWeatherData(json: weatherJSON)
                 print(weatherJSON)
                 
                 case .failure(let error):
@@ -31,21 +31,15 @@ class DownloadWeatherServices {
                 }
             }
         }
-    
-    
     //Parse JSON
-    func updateWeatherData(json : JSON) {
+    func parseWeatherData(json : JSON) {
         
         let tempResult = json["main"]["temp"].doubleValue
-        
+        //for convert temprature to Celsius
         let tempratore = Int(tempResult - 273.15)
-        
         let condition = json["weather"][0]["id"].intValue
         let city = json["name"].stringValue
-        
-        
         //add weather to local host
         Weather.addWeatherToRealm(temp: tempratore, condition: condition, city: city)
-
     }
 }

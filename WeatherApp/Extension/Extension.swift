@@ -7,10 +7,9 @@
 
 import Foundation
 
-
 extension NSDate {
     
-    //for change data to an specific format and convert to string
+    //for change data to a specific format and convert to string
     func getDateString() -> String{
         let calener = Calendar.current
         let month = calener.component(.month, from: self as Date)
@@ -18,12 +17,5 @@ extension NSDate {
         let year = calener.component(.year, from: self as Date)
         
         return "\(day)/\(month)/\(year)"
-        
     }
-    
-    
-    
-    
-    
 }
-

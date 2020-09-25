@@ -7,15 +7,9 @@
 
 import UIKit
 
-
-
-
 class ChangeCityVC: UIViewController {
     
     @IBOutlet weak var cityTxtField: UITextField!
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +22,9 @@ class ChangeCityVC: UIViewController {
        
         let params : [String : String] = ["q" : cityTxtField.text!,"appid" : APP_ID]
             
-            DownloadWeatherServices.instanse.getWeatherData(parameters: params)
+        DownloadWeatherServices.instanse.getWeatherData(parameters: params)
             
-            
-            self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
             
         }
     }

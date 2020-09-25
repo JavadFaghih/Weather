@@ -13,9 +13,6 @@ class StoredCell: UITableViewCell {
     @IBOutlet weak var cityNameLbl: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
     
-    
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
