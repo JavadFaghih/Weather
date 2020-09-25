@@ -9,8 +9,11 @@ import UIKit
 import CoreLocation
 
 
-class MainVC: UIViewController, CLLocationManagerDelegate {
-
+class MainVC: UIViewController, CLLocationManagerDelegate{
+  
+ 
+    
+   
     @IBOutlet weak var tempratureLbl: UILabel!
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var cityLbl: UILabel!
@@ -39,6 +42,12 @@ class MainVC: UIViewController, CLLocationManagerDelegate {
         
         updateUI()
         
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        locationManager.stopUpdatingLocation()
     }
     
     func updateUI() {
